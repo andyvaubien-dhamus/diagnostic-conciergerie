@@ -145,7 +145,7 @@
       box-shadow: 0 6px 16px rgba(44, 76, 110, 0.28);
     }
 
-    /* Écran de confirmation (Réservé au client) */
+    /* Écran de confirmation client */
     #confirmation-screen {
       display: none;
       text-align: center;
@@ -193,22 +193,16 @@
       box-shadow: 0 2px 8px rgba(37, 211, 102, 0.25);
     }
     .btn-wa:hover { background: #1eb855; }
-    .btn-mail-app {
-      background: var(--primary);
-      box-shadow: 0 2px 8px rgba(44, 76, 110, 0.25);
-    }
-    .btn-mail-app:hover { background: var(--primary-hover); }
     .btn-gmail {
       background: #ea4335;
       box-shadow: 0 2px 8px rgba(234, 67, 53, 0.25);
     }
     .btn-gmail:hover { background: #d33828; }
-    .btn-copy {
-      background: #ffffff;
-      color: var(--text-main);
-      border: 1px solid var(--frame-border);
+    .btn-mail-app {
+      background: var(--primary);
+      box-shadow: 0 2px 8px rgba(44, 76, 110, 0.25);
     }
-    .btn-copy:hover { background: #f8fafc; }
+    .btn-mail-app:hover { background: var(--primary-hover); }
 
     .secret-trigger {
       margin-top: 2rem;
@@ -218,7 +212,7 @@
       user-select: none;
     }
 
-    /* Modal Consultant (Protection par mot de passe) */
+    /* Fenêtre modale secrète pour déverrouiller la fiche */
     #adminModal {
       display: none;
       position: fixed;
@@ -248,7 +242,7 @@
       text-align: center;
     }
 
-    /* Rapport de restitution consultant / Fiche PDF */
+    /* Fiche de restitution Consultant / PDF */
     #restitution-report {
       display: none;
       margin-top: 2.5rem;
@@ -425,27 +419,26 @@
       <label><input type="radio" name="q8" value="1 500 € à 3 000 € (Aide régionale)" data-score-tic="25"> 1 500 € à 3 000 € (Dans le cadre d'un financement régional jusqu'à 80 %)</label>
     </div>
 
-    <button type="button" class="btn-submit" onclick="traiterEtSoumettre()">Valider et transmettre mon diagnostic</button>
+    <button type="button" class="btn-submit" onclick="traiterEtSoumettre()">Valider et enregistrer mes réponses</button>
   </form>
 
-  <!-- Écran de confirmation (Réservé au client) -->
+  <!-- Écran de confirmation client -->
   <div id="confirmation-screen">
-    <div class="confirm-title">✅ Diagnostic transmis avec succès !</div>
-    <p class="confirm-desc">Vos réponses ont été enregistrées et transmises à l'ingénierie <strong>Dhamusoft</strong>.<br>
-    Choisissez votre mode d'envoi pour transmettre votre synthèse et fixer le débriefing :</p>
+    <div class="confirm-title">✅ Diagnostic complété avec succès !</div>
+    <p class="confirm-desc">Vos critères de gestion et d'infrastructure ont été enregistrés.<br>
+    Prévenez votre conseiller <strong>Dhamusoft</strong> en un clic pour convenir de la restitution de votre étude technique et financière :</p>
     
     <div class="buttons-group">
-      <a id="btnWhatsApp" class="btn-action btn-wa" href="#" target="_blank">📱 Envoyer via WhatsApp</a>
-      <a id="btnGmail" class="btn-action btn-gmail" href="#" target="_blank">📧 Ouvrir avec Gmail Web</a>
-      <a id="btnEmailApp" class="btn-action btn-mail-app" href="#">✉️ Ouvrir logiciel Messagerie</a>
-      <button type="button" class="btn-action btn-copy" onclick="copierSynthese()">📋 Copier le texte de synthèse</button>
+      <a id="btnWhatsApp" class="btn-action btn-wa" href="#" target="_blank">📱 Prévenir via WhatsApp</a>
+      <a id="btnGmail" class="btn-action btn-gmail" href="#" target="_blank">📧 Prévenir avec Gmail Web</a>
+      <a id="btnEmailApp" class="btn-action btn-mail-app" href="#">✉️ Prévenir par E-mail</a>
     </div>
 
-    <!-- Déclencheur discret pour vous (triple clic) -->
-    <div class="secret-trigger" id="secretTrigger" onclick="handleSecretClick()">© Dhamusoft • Solutions Logicielles</div>
+    <!-- Déclencheur discret pour déverrouiller la fiche en rendez-vous -->
+    <div class="secret-trigger" onclick="handleSecretClick()">© Dhamusoft • Solutions Logicielles</div>
   </div>
 
-  <!-- Rapport de restitution (Consultant uniquement) -->
+  <!-- Rapport de restitution (Réservé au Consultant / Exportable en PDF) -->
   <div id="restitution-report">
     <div class="report-header">
       <div class="report-header-titles">
@@ -466,7 +459,7 @@
   </div>
 </div>
 
-<!-- Modal Mot de passe Consultant -->
+<!-- Modal Consultant (Protection par mot de passe) -->
 <div id="adminModal">
   <div class="admin-card">
     <h3 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 8px;">Espace Consultant</h3>
@@ -474,17 +467,17 @@
     <input type="password" id="adminPass" placeholder="Code secret">
     <div style="display: flex; gap: 8px;">
       <button class="btn-action btn-mail-app" style="flex: 1;" onclick="verifierPass()">Valider</button>
-      <button class="btn-action btn-copy" style="flex: 1;" onclick="fermerModal()">Annuler</button>
+      <button class="btn-action" style="flex: 1; background: #cbd5e1; color: var(--text-main);" onclick="fermerModal()">Annuler</button>
     </div>
   </div>
 </div>
 
 <script>
-const DEST_PHONE = "590690051144"; // Votre numéro au format international sans '+'
+// VOS COORDONNÉES DE RÉCEPTION (À ajuster avec votre numéro réel) :
+const DEST_PHONE = "590690051144"; 
 const DEST_EMAIL = "dhamusoft@gmail.com";
-const ADMIN_CODE = "1984"; // Mot de passe pour déverrouiller la restitution
+const ADMIN_CODE = "1984"; // Mot de passe consultant pour afficher la fiche
 
-let messageGlobal = "";
 let secretClicks = 0;
 
 function traiterEtSoumettre() {
@@ -498,11 +491,9 @@ function traiterEtSoumettre() {
   }
 
   let scoreTic = 0, scoreSM = 0, scoreWx = 0;
-  let recapReponses = [];
 
   for (let i = 1; i <= 8; i++) {
     const checked = form.querySelector(`input[name="q${i}"]:checked`);
-    recapReponses.push(`Q${i}: ${checked.value}`);
     scoreTic += parseInt(checked.getAttribute('data-score-tic') || '0', 10);
     scoreSM += parseInt(checked.getAttribute('data-score-sm') || '0', 10);
     scoreWx += parseInt(checked.getAttribute('data-score-wx') || '0', 10);
@@ -570,52 +561,35 @@ function traiterEtSoumettre() {
     <strong>Bénéficiaire :</strong> ${nom} — ${structure} | <strong>Réalisé par :</strong> Dhamusoft | <strong>Date :</strong> ${new Date().toLocaleDateString('fr-FR')}
   `;
 
-  // Message texte complet
-  messageGlobal = 
-`Bonjour, voici les résultats de mon cadrage conciergerie :
+  // MESSAGE CLIENT TOTALEMENT ÉPURÉ & PROFESSIONNEL (Aucun score, aucun résultat visible)
+  const messageClient = 
+`Bonjour,
 
-👤 PROSPECT :
-- Contact : ${nom}
-- Structure : ${structure}
+Je viens de compléter l'étude d'opportunité et le cadrage technique pour le projet web de ma conciergerie : ${structure}.
 
-🎯 CLASSEMENT CALCULÉ :
-1. ${solutions[0].titre}
-2. ${solutions[1].titre}
-3. ${solutions[2].titre}
+Mes critères d'organisation (gestion des réservations, flux de séjours et perspectives d'évolution) ont été enregistrés avec succès.
 
-📋 DÉTAIL DES RÉPONSES :
-- ${recapReponses.join("\n- ")}`;
+Je reste à votre disposition pour planifier la restitution de notre feuille de route et découvrir les options adaptées à ma structure.
+
+Bien cordialement,
+${nom}`;
 
   // 1. WhatsApp
-  document.getElementById('btnWhatsApp').href = `https://wa.me/${DEST_PHONE}?text=${encodeURIComponent(messageGlobal)}`;
+  document.getElementById('btnWhatsApp').href = `https://wa.me/${DEST_PHONE}?text=${encodeURIComponent(messageClient)}`;
 
-  // 2. Gmail Web (Lien direct sans dépendance de logiciel)
-  const sujet = `Diagnostic Web - ${structure} (${nom})`;
-  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(DEST_EMAIL)}&su=${encodeURIComponent(sujet)}&body=${encodeURIComponent(messageGlobal)}`;
+  // 2. Gmail Web (Ouverture directe sans logiciel à installer)
+  const sujet = `Finalisation étude d'opportunité web - ${structure} (${nom})`;
+  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(DEST_EMAIL)}&su=${encodeURIComponent(sujet)}&body=${encodeURIComponent(messageClient)}`;
   document.getElementById('btnGmail').href = gmailUrl;
 
   // 3. Mailto classique
-  document.getElementById('btnEmailApp').href = `mailto:${DEST_EMAIL}?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(messageGlobal)}`;
+  document.getElementById('btnEmailApp').href = `mailto:${DEST_EMAIL}?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(messageClient)}`;
 
   form.style.display = 'none';
   document.getElementById('confirmation-screen').style.display = 'block';
 }
 
-function copierSynthese() {
-  if (!navigator.clipboard) {
-    const el = document.createElement('textarea');
-    el.value = messageGlobal;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand('copy');
-    document.body.removeChild(el);
-  } else {
-    navigator.clipboard.writeText(messageGlobal);
-  }
-  alert("Copié ! Vous pouvez maintenant coller le message dans votre application ou messagerie.");
-}
-
-// Accès Consultant sécurisé (Triple-clic sur le copyright ou Ctrl + Shift + D)
+// DÉVERROUILLAGE SÉCURISÉ CONSULTANT
 function handleSecretClick() {
   secretClicks++;
   if (secretClicks >= 3) {
