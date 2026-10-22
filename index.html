@@ -44,7 +44,6 @@
       box-shadow: 0 4px 15px rgba(44, 76, 110, 0.06);
     }
 
-    /* En-tête Dhamusoft avec logo */
     .brand-header {
       text-align: center;
       margin-bottom: 1.8rem;
@@ -79,7 +78,6 @@
       margin-top: 0.5rem;
     }
 
-    /* Champs d'identification */
     .client-info {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -99,7 +97,6 @@
       box-shadow: 0 0 0 3px rgba(44, 76, 110, 0.12);
     }
 
-    /* Questions & Radios */
     .question {
       margin-bottom: 1.25rem;
       padding-bottom: 1.1rem;
@@ -128,7 +125,6 @@
       height: 17px;
     }
 
-    /* Bouton principal */
     .btn-submit {
       width: 100%;
       padding: 0.85rem;
@@ -149,7 +145,6 @@
       box-shadow: 0 6px 16px rgba(44, 76, 110, 0.28);
     }
 
-    /* Écran de confirmation client */
     #confirmation-screen {
       display: none;
       text-align: center;
@@ -209,7 +204,6 @@
       box-shadow: 0 2px 8px rgba(44, 76, 110, 0.25);
     }
 
-    /* Fiche de restitution consultant / PDF */
     #restitution-report {
       display: none;
       margin-top: 2.5rem;
@@ -309,7 +303,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* RÈGLES D'EXPORT PDF / IMPRESSION */
     @media print {
       body { background: white; padding: 0; }
       .container { border: none; box-shadow: none; padding: 0; max-width: 100%; }
@@ -323,9 +316,8 @@
 <body>
 
 <div class="container">
-  <!-- En-tête avec logo Dhamusoft -->
   <div class="brand-header">
-    <img src="assets/images/logo_dhamusoft.png" alt="Logo Dhamusoft" class="brand-logo">
+    <img src="assets/images/logo_dhamusoft.png" onerror="this.onerror=null; this.src='https://andyvaubien-dhamus.github.io/portfolio-dhamusoft/assets/images/logo_dhamusoft.png';" alt="Logo Dhamusoft" class="brand-logo">
     <span class="brand-tag">Conseil & Ingénierie Web • Guadeloupe</span>
     <h1>Étude d'Opportunité & Cadrage Web Conciergerie</h1>
     <p class="intro">Ce diagnostic analyse vos processus opérationnels, chiffre vos besoins d'automatisation et évalue votre éligibilité aux aides régionales de transition numérique (Chèque TIC Guadeloupe).</p>
@@ -337,7 +329,6 @@
       <input type="text" id="clientStructure" placeholder="Nom de votre Conciergerie / Structure *" required>
     </div>
 
-    <!-- Question 1 -->
     <div class="question">
       <div class="question-title">1. Depuis combien de temps votre structure est-elle immatriculée ?</div>
       <label><input type="radio" name="q1" value="Moins de 6 mois" data-score-tic="0" checked> Moins de 6 mois (création récente)</label>
@@ -345,35 +336,30 @@
       <label><input type="radio" name="q1" value="Plus de 1 an" data-score-tic="25"> Plus d'un an d'activité régulière</label>
     </div>
 
-    <!-- Question 2 -->
     <div class="question">
       <div class="question-title">2. Situation administrative et fiscale de l'entreprise ?</div>
       <label><input type="radio" name="q2" value="À jour (attestations OK)" data-score-tic="25" checked> À jour des cotisations fiscales et sociales (attestations disponibles)</label>
       <label><input type="radio" name="q2" value="En cours de régularisation / Non à jour" data-score-tic="-100"> En cours de régularisation ou non à jour</label>
     </div>
 
-    <!-- Question 3 -->
     <div class="question">
       <div class="question-title">3. Aujourd'hui, comment souhaitez-vous traiter les demandes de réservation ?</div>
       <label><input type="radio" name="q3" value="Demande de devis & validation manuelle" data-score-sm="15" data-score-wx="5" checked> Par demande de devis qualifiée (validation manuelle avant émission de contrat)</label>
       <label><input type="radio" name="q3" value="Paiement direct de l'acompte par CB" data-score-sm="5" data-score-wx="15"> En réservation instantanée avec encaissement de l'acompte par carte bancaire</label>
     </div>
 
-    <!-- Question 4 -->
     <div class="question">
       <div class="question-title">4. Comment envisagez-vous la gestion des séjours d'ici 6 mois ?</div>
       <label><input type="radio" name="q4" value="Maintien de la formule actuelle" data-score-sm="10" checked> Même volume maîtrisé (sélection personnalisée des vacanciers)</label>
       <label><input type="radio" name="q4" value="Automatisation poussée (devis + contrat + solde)" data-score-sm="20" data-score-wx="10"> Automatisation maximale pour limiter le temps administratif de gestion</label>
     </div>
 
-    <!-- Question 5 -->
     <div class="question">
       <div class="question-title">5. Les logements sont-ils (ou seront-ils) listés sur Airbnb ou Booking.com ?</div>
       <label><input type="radio" name="q5" value="Oui, présence multicanale (synchro iCal indispensable)" data-score-sm="15" data-score-wx="10" checked> Oui, il faut synchroniser les disponibilités en continu pour éviter les sur-réservations</label>
       <label><input type="radio" name="q5" value="Non, exclusivité totale sur mon futur site" data-score-sm="0" data-score-wx="0"> Non, les réservations se feront exclusivement sur notre plateforme</label>
     </div>
 
-    <!-- Question 6 -->
     <div class="question">
       <div class="question-title">6. À combien estimez-vous les coûts annuels d'un site sur une plateforme type Wix ?</div>
       <label><input type="radio" name="q6" value="Moins de 100 €/an" data-cout-estime="faible" checked> Moins de 100 € / an (nom de domaine compris)</label>
@@ -381,14 +367,12 @@
       <label><input type="radio" name="q6" value="Plus de 450 €/an" data-cout-estime="eleve"> Plus de 450 € / an (avec options e-commerce & réservations)</label>
     </div>
 
-    <!-- Question 7 -->
     <div class="question">
       <div class="question-title">7. Concernant vos charges informatiques récurrentes, quelle est votre préférence ?</div>
       <label><input type="radio" name="q7" value="Zéro abonnement mensuel (domaine seul)" data-score-sm="25" data-score-wx="0" checked> Zéro abonnement mensuel obligatoire (frais limités au nom de domaine ~15 €/an)</label>
       <label><input type="radio" name="q7" value="Abonnement mensuel de confort accepté" data-score-sm="0" data-score-wx="25"> Un abonnement mensuel (17 € à 35 €/mois) ne me pose aucune difficulté</label>
     </div>
 
-    <!-- Question 8 -->
     <div class="question">
       <div class="question-title">8. Quel budget prévoyez-vous pour ce projet ?</div>
       <label><input type="radio" name="q8" value="500 € à 800 €" data-score-wx="10" checked> 500 € à 800 € (Budget d'amorçage)</label>
@@ -399,7 +383,6 @@
     <button type="button" class="btn-submit" onclick="traiterEtSoumettre()">Valider et transmettre mon diagnostic</button>
   </form>
 
-  <!-- Écran de confirmation client -->
   <div id="confirmation-screen">
     <div class="confirm-title">✅ Diagnostic transmis avec succès !</div>
     <p class="confirm-desc">Vos réponses ont été enregistrées et analysées par notre moteur de cadrage.<br>
@@ -415,14 +398,13 @@
     </p>
   </div>
 
-  <!-- Rapport de restitution consultant / Fiche PDF -->
   <div id="restitution-report">
     <div class="report-header">
       <div class="report-header-titles">
         <h2>FICHE DE RESTITUTION STRATÉGIQUE & DIGITALE</h2>
         <div class="meta-box" id="reportMeta"></div>
       </div>
-      <img src="assets/images/logo_dhamusoft.png" alt="Dhamusoft" class="report-logo">
+      <img src="assets/images/logo_dhamusoft.png" onerror="this.onerror=null; this.src='https://andyvaubien-dhamus.github.io/portfolio-dhamusoft/assets/images/logo_dhamusoft.png';" alt="Dhamusoft" class="report-logo">
     </div>
 
     <div class="tic-alert">
@@ -437,8 +419,7 @@
 </div>
 
 <script>
-// COORDONNÉES DE DESTINATION :
-const DEST_PHONE = "590690000000"; // Votre numéro au format international (ex: 590690xxxxxx)
+const DEST_PHONE = "590690000000"; // Votre numéro au format international sans '+'
 const DEST_EMAIL = "contact@dhamusoft.fr";
 
 function traiterEtSoumettre() {
@@ -462,7 +443,6 @@ function traiterEtSoumettre() {
     scoreWx += parseInt(checked.getAttribute('data-score-wx') || '0', 10);
   }
 
-  // Les 3 solutions évaluées
   const solutions = [
     {
       id: "sur_mesure",
@@ -493,7 +473,6 @@ function traiterEtSoumettre() {
     }
   ];
 
-  // Tri par pertinence
   solutions.sort((a, b) => b.score - a.score);
 
   const containerRanking = document.getElementById('solutionsRanking');
@@ -528,7 +507,6 @@ function traiterEtSoumettre() {
   form.style.display = 'none';
   document.getElementById('confirmation-screen').style.display = 'block';
 
-  // Message prérempli
   const texteMessage = 
 `Bonjour, voici les résultats de mon cadrage conciergerie :
 
