@@ -145,17 +145,18 @@
       box-shadow: 0 6px 16px rgba(44, 76, 110, 0.28);
     }
 
+    /* Écran de confirmation (Réservé au client) */
     #confirmation-screen {
       display: none;
       text-align: center;
-      padding: 2rem 1.5rem;
+      padding: 2.2rem 1.5rem;
       background: var(--success-bg);
       border: 1px solid #a7f3d0;
       border-radius: 12px;
       animation: fadeIn 0.4s ease-out;
     }
     .confirm-title {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       font-weight: 800;
       color: var(--success-green);
       margin-bottom: 0.5rem;
@@ -167,43 +168,87 @@
     }
     .buttons-group {
       display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 380px;
+      margin: 0 auto;
+    }
+    .btn-action {
+      padding: 0.8rem 1.2rem;
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 700;
+      font-size: 0.90rem;
+      display: inline-flex;
+      align-items: center;
       justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
     }
     .btn-wa {
-      flex: 1;
-      min-width: 210px;
-      padding: 0.75rem 1.2rem;
       background: #25D366;
-      color: white;
-      text-decoration: none;
-      border-radius: 25px;
-      font-weight: 700;
-      font-size: 0.90rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
       box-shadow: 0 2px 8px rgba(37, 211, 102, 0.25);
     }
-    .btn-mail {
-      flex: 1;
-      min-width: 210px;
-      padding: 0.75rem 1.2rem;
+    .btn-wa:hover { background: #1eb855; }
+    .btn-mail-app {
       background: var(--primary);
-      color: white;
-      text-decoration: none;
-      border-radius: 25px;
-      font-weight: 700;
-      font-size: 0.90rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
       box-shadow: 0 2px 8px rgba(44, 76, 110, 0.25);
     }
+    .btn-mail-app:hover { background: var(--primary-hover); }
+    .btn-gmail {
+      background: #ea4335;
+      box-shadow: 0 2px 8px rgba(234, 67, 53, 0.25);
+    }
+    .btn-gmail:hover { background: #d33828; }
+    .btn-copy {
+      background: #ffffff;
+      color: var(--text-main);
+      border: 1px solid var(--frame-border);
+    }
+    .btn-copy:hover { background: #f8fafc; }
 
+    .secret-trigger {
+      margin-top: 2rem;
+      font-size: 0.75rem;
+      color: #94a3b8;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* Modal Consultant (Protection par mot de passe) */
+    #adminModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .admin-card {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      max-width: 360px;
+      width: 90%;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    .admin-card input {
+      width: 100%;
+      padding: 10px;
+      margin: 14px 0;
+      border: 1px solid var(--frame-border);
+      border-radius: 6px;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    /* Rapport de restitution consultant / Fiche PDF */
     #restitution-report {
       display: none;
       margin-top: 2.5rem;
@@ -306,7 +351,7 @@
     @media print {
       body { background: white; padding: 0; }
       .container { border: none; box-shadow: none; padding: 0; max-width: 100%; }
-      #quizForm, #confirmation-screen, .btn-print, .intro, .brand-header { display: none !important; }
+      #quizForm, #confirmation-screen, .btn-print, .intro, .brand-header, #adminModal { display: none !important; }
       #restitution-report { display: block !important; border-top: none; margin-top: 0; padding-top: 0; }
       .report-header { display: flex !important; }
       .ranking-card { page-break-inside: avoid; border: 1px solid #cbd5e1; }
@@ -383,21 +428,24 @@
     <button type="button" class="btn-submit" onclick="traiterEtSoumettre()">Valider et transmettre mon diagnostic</button>
   </form>
 
+  <!-- Écran de confirmation (Réservé au client) -->
   <div id="confirmation-screen">
     <div class="confirm-title">✅ Diagnostic transmis avec succès !</div>
-    <p class="confirm-desc">Vos réponses ont été enregistrées et analysées par notre moteur de cadrage.<br>
-    Cliquez ci-dessous pour transmettre la synthèse à votre conseiller <strong>Dhamusoft</strong> et convenir de la restitution de votre feuille de route chiffrée.</p>
+    <p class="confirm-desc">Vos réponses ont été enregistrées et transmises à l'ingénierie <strong>Dhamusoft</strong>.<br>
+    Choisissez votre mode d'envoi pour transmettre votre synthèse et fixer le débriefing :</p>
     
     <div class="buttons-group">
-      <a id="btnWhatsApp" class="btn-wa" href="#" target="_blank">📱 Transmettre par WhatsApp</a>
-      <a id="btnEmail" class="btn-mail" href="#">✉️ Transmettre par E-mail</a>
+      <a id="btnWhatsApp" class="btn-action btn-wa" href="#" target="_blank">📱 Envoyer via WhatsApp</a>
+      <a id="btnGmail" class="btn-action btn-gmail" href="#" target="_blank">📧 Ouvrir avec Gmail Web</a>
+      <a id="btnEmailApp" class="btn-action btn-mail-app" href="#">✉️ Ouvrir logiciel Messagerie</a>
+      <button type="button" class="btn-action btn-copy" onclick="copierSynthese()">📋 Copier le texte de synthèse</button>
     </div>
 
-    <p style="margin-top: 1.8rem; font-size: 0.82rem; color: var(--text-muted);">
-      <a href="#" onclick="toggleRestitution(); return false;" style="color: var(--text-muted); text-decoration: underline;">Accès consultant / Restitution complète</a>
-    </p>
+    <!-- Déclencheur discret pour vous (triple clic) -->
+    <div class="secret-trigger" id="secretTrigger" onclick="handleSecretClick()">© Dhamusoft • Solutions Logicielles</div>
   </div>
 
+  <!-- Rapport de restitution (Consultant uniquement) -->
   <div id="restitution-report">
     <div class="report-header">
       <div class="report-header-titles">
@@ -418,9 +466,26 @@
   </div>
 </div>
 
+<!-- Modal Mot de passe Consultant -->
+<div id="adminModal">
+  <div class="admin-card">
+    <h3 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 8px;">Espace Consultant</h3>
+    <p style="font-size: 0.85rem; color: var(--text-muted);">Saisissez le code d'accès pour afficher la restitution :</p>
+    <input type="password" id="adminPass" placeholder="Code secret">
+    <div style="display: flex; gap: 8px;">
+      <button class="btn-action btn-mail-app" style="flex: 1;" onclick="verifierPass()">Valider</button>
+      <button class="btn-action btn-copy" style="flex: 1;" onclick="fermerModal()">Annuler</button>
+    </div>
+  </div>
+</div>
+
 <script>
-const DEST_PHONE = "590690000000"; // Votre numéro au format international sans '+'
-const DEST_EMAIL = "contact@dhamusoft.fr";
+const DEST_PHONE = "590690051144"; // Votre numéro au format international sans '+'
+const DEST_EMAIL = "dhamusoft@gmail.com";
+const ADMIN_CODE = "1984"; // Mot de passe pour déverrouiller la restitution
+
+let messageGlobal = "";
+let secretClicks = 0;
 
 function traiterEtSoumettre() {
   const form = document.getElementById('quizForm');
@@ -475,6 +540,7 @@ function traiterEtSoumettre() {
 
   solutions.sort((a, b) => b.score - a.score);
 
+  // Construction de la restitution (prête en coulisse)
   const containerRanking = document.getElementById('solutionsRanking');
   containerRanking.innerHTML = '';
 
@@ -504,10 +570,8 @@ function traiterEtSoumettre() {
     <strong>Bénéficiaire :</strong> ${nom} — ${structure} | <strong>Réalisé par :</strong> Dhamusoft | <strong>Date :</strong> ${new Date().toLocaleDateString('fr-FR')}
   `;
 
-  form.style.display = 'none';
-  document.getElementById('confirmation-screen').style.display = 'block';
-
-  const texteMessage = 
+  // Message texte complet
+  messageGlobal = 
 `Bonjour, voici les résultats de mon cadrage conciergerie :
 
 👤 PROSPECT :
@@ -522,15 +586,70 @@ function traiterEtSoumettre() {
 📋 DÉTAIL DES RÉPONSES :
 - ${recapReponses.join("\n- ")}`;
 
-  document.getElementById('btnWhatsApp').href = `https://wa.me/${DEST_PHONE}?text=${encodeURIComponent(texteMessage)}`;
-  document.getElementById('btnEmail').href = `mailto:${DEST_EMAIL}?subject=${encodeURIComponent(`Diagnostic Web - ${structure} (${nom})`)}&body=${encodeURIComponent(texteMessage)}`;
+  // 1. WhatsApp
+  document.getElementById('btnWhatsApp').href = `https://wa.me/${DEST_PHONE}?text=${encodeURIComponent(messageGlobal)}`;
+
+  // 2. Gmail Web (Lien direct sans dépendance de logiciel)
+  const sujet = `Diagnostic Web - ${structure} (${nom})`;
+  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(DEST_EMAIL)}&su=${encodeURIComponent(sujet)}&body=${encodeURIComponent(messageGlobal)}`;
+  document.getElementById('btnGmail').href = gmailUrl;
+
+  // 3. Mailto classique
+  document.getElementById('btnEmailApp').href = `mailto:${DEST_EMAIL}?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(messageGlobal)}`;
+
+  form.style.display = 'none';
+  document.getElementById('confirmation-screen').style.display = 'block';
 }
 
-function toggleRestitution() {
-  const rep = document.getElementById('restitution-report');
-  rep.style.display = (rep.style.display === 'block') ? 'none' : 'block';
-  if (rep.style.display === 'block') {
+function copierSynthese() {
+  if (!navigator.clipboard) {
+    const el = document.createElement('textarea');
+    el.value = messageGlobal;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+  } else {
+    navigator.clipboard.writeText(messageGlobal);
+  }
+  alert("Copié ! Vous pouvez maintenant coller le message dans votre application ou messagerie.");
+}
+
+// Accès Consultant sécurisé (Triple-clic sur le copyright ou Ctrl + Shift + D)
+function handleSecretClick() {
+  secretClicks++;
+  if (secretClicks >= 3) {
+    secretClicks = 0;
+    ouvrirModal();
+  }
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.ctrlKey && e.shiftKey && (e.key === 'D' || e.key === 'd')) {
+    e.preventDefault();
+    ouvrirModal();
+  }
+});
+
+function ouvrirModal() {
+  document.getElementById('adminModal').style.display = 'flex';
+  document.getElementById('adminPass').focus();
+}
+
+function fermerModal() {
+  document.getElementById('adminModal').style.display = 'none';
+  document.getElementById('adminPass').value = '';
+}
+
+function verifierPass() {
+  const saisie = document.getElementById('adminPass').value;
+  if (saisie === ADMIN_CODE) {
+    fermerModal();
+    const rep = document.getElementById('restitution-report');
+    rep.style.display = 'block';
     rep.scrollIntoView({ behavior: 'smooth' });
+  } else {
+    alert("Code incorrect.");
   }
 }
 </script>
