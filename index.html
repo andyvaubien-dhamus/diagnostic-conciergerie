@@ -212,7 +212,7 @@
       user-select: none;
     }
 
-    /* Fenêtre modale secrète pour déverrouiller la fiche */
+    /* Modal secret consultant */
     #adminModal {
       display: none;
       position: fixed;
@@ -342,6 +342,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* RÈGLES D'EXPORT PDF / IMPRESSION */
     @media print {
       body { background: white; padding: 0; }
       .container { border: none; box-shadow: none; padding: 0; max-width: 100%; }
@@ -359,64 +360,67 @@
     <img src="assets/images/logo_dhamusoft.png" onerror="this.onerror=null; this.src='https://andyvaubien-dhamus.github.io/portfolio-dhamusoft/assets/images/logo_dhamusoft.png';" alt="Logo Dhamusoft" class="brand-logo">
     <span class="brand-tag">Conseil & Ingénierie Web • Guadeloupe</span>
     <h1>Étude d'Opportunité & Cadrage Web Conciergerie</h1>
-    <p class="intro">Ce diagnostic analyse vos processus opérationnels, chiffre vos besoins d'automatisation et évalue votre éligibilité aux aides régionales de transition numérique (Chèque TIC Guadeloupe).</p>
+    <p class="intro">Ce diagnostic permet de cadrer vos besoins d'optimisation SEO, d'évaluer vos flux de réservation et d'identifier votre éligibilité aux aides régionales de transition numérique (Chèque TIC Guadeloupe).</p>
   </div>
 
   <form id="quizForm">
     <div class="client-info">
       <input type="text" id="clientNom" placeholder="Votre Nom & Prénom *" required>
-      <input type="text" id="clientStructure" placeholder="Nom de votre Conciergerie / Structure *" required>
+      <input type="text" id="clientStructure" placeholder="Nom de votre Conciergerie / Structure *" value="Conciergerie Service Guadeloupe" required>
     </div>
 
+    <!-- Question 1 : Ancienneté -->
     <div class="question">
       <div class="question-title">1. Depuis combien de temps votre structure est-elle immatriculée ?</div>
-      <label><input type="radio" name="q1" value="Moins de 6 mois" data-score-tic="0" checked> Moins de 6 mois (création récente)</label>
-      <label><input type="radio" name="q1" value="Entre 6 mois et 1 an" data-score-tic="10"> Entre 6 mois et 1 an</label>
+      <label><input type="radio" name="q1" value="Moins de 6 mois" data-score-tic="5" checked> Moins de 6 mois (création très récente / lancement)</label>
+      <label><input type="radio" name="q1" value="Entre 6 mois et 1 an" data-score-tic="15"> Entre 6 mois et 1 an</label>
       <label><input type="radio" name="q1" value="Plus de 1 an" data-score-tic="25"> Plus d'un an d'activité régulière</label>
     </div>
 
+    <!-- Question 2 : Régularité fiscale/sociale -->
     <div class="question">
       <div class="question-title">2. Situation administrative et fiscale de l'entreprise ?</div>
       <label><input type="radio" name="q2" value="À jour (attestations OK)" data-score-tic="25" checked> À jour des cotisations fiscales et sociales (attestations disponibles)</label>
       <label><input type="radio" name="q2" value="En cours de régularisation / Non à jour" data-score-tic="-100"> En cours de régularisation ou non à jour</label>
     </div>
 
+    <!-- Question 3 : Frein sur le site Wix existant -->
     <div class="question">
-      <div class="question-title">3. Aujourd'hui, comment souhaitez-vous traiter les demandes de réservation ?</div>
-      <label><input type="radio" name="q3" value="Demande de devis & validation manuelle" data-score-sm="15" data-score-wx="5" checked> Par demande de devis qualifiée (validation manuelle avant émission de contrat)</label>
-      <label><input type="radio" name="q3" value="Paiement direct de l'acompte par CB" data-score-sm="5" data-score-wx="15"> En réservation instantanée avec encaissement de l'acompte par carte bancaire</label>
+      <div class="question-title">3. Quel est le frein principal rencontré sur votre site Wix actuel ?</div>
+      <label><input type="radio" name="q3" value="Manque de visibilité Google (SEO Guadeloupe)" data-score-sm="15" data-score-wx="10" checked> Le manque de visibilité sur Google (introuvable sur les recherches stratégiques en Guadeloupe)</label>
+      <label><input type="radio" name="q3" value="Anomalies d'affichage et navigation" data-score-sm="10" data-score-wx="15"> Des anomalies de présentation, de mise en page ou de lenteur sur smartphone</label>
+      <label><input type="radio" name="q3" value="Les deux : refonte SEO et crédibilité" data-score-sm="20" data-score-wx="5"> Les deux : je veux un outil crédible, rapide et performant face aux concurrents</label>
     </div>
 
+    <!-- Question 4 : Priorité commerciale -->
     <div class="question">
-      <div class="question-title">4. Comment envisagez-vous la gestion des séjours d'ici 6 mois ?</div>
-      <label><input type="radio" name="q4" value="Maintien de la formule actuelle" data-score-sm="10" checked> Même volume maîtrisé (sélection personnalisée des vacanciers)</label>
-      <label><input type="radio" name="q4" value="Automatisation poussée (devis + contrat + solde)" data-score-sm="20" data-score-wx="10"> Automatisation maximale pour limiter le temps administratif de gestion</label>
+      <div class="question-title">4. Quelle est votre priorité commerciale immédiate sur le web ?</div>
+      <label><input type="radio" name="q4" value="Capter de nouveaux propriétaires" data-score-sm="15" data-score-wx="10" checked> Capter de nouveaux propriétaires en gestion locative (valoriser notre intendance)</label>
+      <label><input type="radio" name="q4" value="Réservations directes voyageurs" data-score-sm="15" data-score-wx="10"> Générer des réservations en direct auprès des vacanciers (sans commission intermédiaire)</label>
+      <label><input type="radio" name="q4" value="Équilibre propriétaires et voyageurs" data-score-sm="20" data-score-wx="10"> Développer simultanément ces deux canaux de manière équilibrée</label>
     </div>
 
+    <!-- Question 5 : Synchronisation calendriers -->
     <div class="question">
-      <div class="question-title">5. Les logements sont-ils (ou seront-ils) listés sur Airbnb ou Booking.com ?</div>
-      <label><input type="radio" name="q5" value="Oui, présence multicanale (synchro iCal indispensable)" data-score-sm="15" data-score-wx="10" checked> Oui, il faut synchroniser les disponibilités en continu pour éviter les sur-réservations</label>
-      <label><input type="radio" name="q5" value="Non, exclusivité totale sur mon futur site" data-score-sm="0" data-score-wx="0"> Non, les réservations se feront exclusivement sur notre plateforme</label>
+      <div class="question-title">5. Comment gérez-vous (ou envisagez-vous) les disponibilités des logements ?</div>
+      <label><input type="radio" name="q5" value="Formulaire de devis personnalisé" data-score-sm="10" data-score-wx="10"> Simple formulaire de contact ou devis qualifié avec réponse personnalisée</label>
+      <label><input type="radio" name="q5" value="Synchro iCal Airbnb / Booking indispensable" data-score-sm="20" data-score-wx="5" checked> Synchronisation automatique iCal avec Airbnb/Booking indispensable (éviter les doublons)</label>
+      <label><input type="radio" name="q5" value="Réservation directe avec acompte CB" data-score-sm="15" data-score-wx="10"> Réservation instantanée avec paiement sécurisé de l'acompte par carte bancaire</label>
     </div>
 
+    <!-- Question 6 : Socle technique & abonnements -->
     <div class="question">
-      <div class="question-title">6. À combien estimez-vous les coûts annuels d'un site sur une plateforme type Wix ?</div>
-      <label><input type="radio" name="q6" value="Moins de 100 €/an" data-cout-estime="faible" checked> Moins de 100 € / an (nom de domaine compris)</label>
-      <label><input type="radio" name="q6" value="Entre 200 € et 360 €/an" data-cout-estime="realiste"> Entre 200 € et 360 € / an selon les modules choisis</label>
-      <label><input type="radio" name="q6" value="Plus de 450 €/an" data-cout-estime="eleve"> Plus de 450 € / an (avec options e-commerce & réservations)</label>
+      <div class="question-title">6. Concernant l'avenir de votre socle technique et les frais récurrents ?</div>
+      <label><input type="radio" name="q6" value="Maintien Wix avec abonnement mensuel" data-score-sm="0" data-score-wx="25"> Je souhaite conserver Wix pour l'application mobile, quitte à payer l'abonnement mensuel (17 à 30 €/mois)</label>
+      <label><input type="radio" name="q6" value="Zéro abonnement récurrent (domaine seul)" data-score-sm="25" data-score-wx="0" checked> Je préfère éliminer les abonnements mensuels pour un site propriétaire, ultra-rapide et économique (~15 €/an)</label>
     </div>
 
+    <!-- Question 7 : Capacité d'investissement et trésorerie -->
     <div class="question">
-      <div class="question-title">7. Concernant vos charges informatiques récurrentes, quelle est votre préférence ?</div>
-      <label><input type="radio" name="q7" value="Zéro abonnement mensuel (domaine seul)" data-score-sm="25" data-score-wx="0" checked> Zéro abonnement mensuel obligatoire (frais limités au nom de domaine ~15 €/an)</label>
-      <label><input type="radio" name="q7" value="Abonnement mensuel de confort accepté" data-score-sm="0" data-score-wx="25"> Un abonnement mensuel (17 € à 35 €/mois) ne me pose aucune difficulté</label>
-    </div>
-
-    <div class="question">
-      <div class="question-title">8. Quel budget prévoyez-vous pour ce projet ?</div>
-      <label><input type="radio" name="q8" value="500 € à 800 €" data-score-wx="10" checked> 500 € à 800 € (Budget d'amorçage)</label>
-      <label><input type="radio" name="q8" value="800 € à 1 500 €" data-score-sm="15"> 800 € à 1 500 € (Développement sur-mesure structuré)</label>
-      <label><input type="radio" name="q8" value="1 500 € à 3 000 € (Aide régionale)" data-score-tic="25"> 1 500 € à 3 000 € (Dans le cadre d'un financement régional jusqu'à 80 %)</label>
+      <div class="question-title">7. Votre approche concernant le budget et la trésorerie de démarrage ?</div>
+      <label><input type="radio" name="q7" value="Budget léger immédiat (< 600 €)" data-score-wx="20" data-score-treso="legere"> Trésorerie très serrée : je privilégie une intervention légère sur le Wix actuel (&lt; 600 €)</label>
+      <label><input type="radio" name="q7" value="Projet structuré avec paiement en 3x" data-score-sm="20" data-score-tic="15" data-score-treso="echelonne" checked> Prête pour un projet structuré à condition de pouvoir échelonner le règlement (paiement en 3 fois sans frais)</label>
+      <label><input type="radio" name="q7" value="Projet subventionné Région (Chèque TIC)" data-score-sm="15" data-score-tic="25" data-score-treso="subvention"> Capacité d'investissement pour un projet subventionné par la Région Guadeloupe (remboursement à 80 %)</label>
     </div>
 
     <button type="button" class="btn-submit" onclick="traiterEtSoumettre()">Valider et enregistrer mes réponses</button>
@@ -425,7 +429,7 @@
   <!-- Écran de confirmation client -->
   <div id="confirmation-screen">
     <div class="confirm-title">✅ Diagnostic complété avec succès !</div>
-    <p class="confirm-desc">Vos critères de gestion et d'infrastructure ont été enregistrés.<br>
+    <p class="confirm-desc">Vos critères de fonctionnement et vos priorités d'optimisation ont été enregistrés.<br>
     Prévenez votre conseiller <strong>Dhamusoft</strong> en un clic pour convenir de la restitution de votre étude technique et financière :</p>
     
     <div class="buttons-group">
@@ -434,11 +438,10 @@
       <a id="btnEmailApp" class="btn-action btn-mail-app" href="#">✉️ Prévenir par E-mail</a>
     </div>
 
-    <!-- Déclencheur discret pour déverrouiller la fiche en rendez-vous -->
     <div class="secret-trigger" onclick="handleSecretClick()">© Dhamusoft • Solutions Logicielles</div>
   </div>
 
-  <!-- Rapport de restitution (Réservé au Consultant / Exportable en PDF) -->
+  <!-- Rapport de restitution (Réservé au Consultant / Exportable PDF) -->
   <div id="restitution-report">
     <div class="report-header">
       <div class="report-header-titles">
@@ -449,7 +452,7 @@
     </div>
 
     <div class="tic-alert">
-      <strong>Dispositif Régional Chèque TIC :</strong> Les développements sur-mesure sont éligibles à la subvention de la <strong>Région Guadeloupe (jusqu'à 80 % de prise en charge)</strong>. L'aide finance un actif technologique pérenne dont vous restez propriétaire à 100 %, sans payer de rente mensuelle à une plateforme tierce.
+      <strong>Dispositif Régional Chèque TIC :</strong> Les projets de refonte sur-mesure et d'optimisation avancée sont éligibles à la subvention de la <strong>Région Guadeloupe (jusqu'à 80 % de prise en charge)</strong>. L'aide finance un actif technologique pérenne dont vous êtes propriétaire à 100 %, sans payer de rente mensuelle permanente.
     </div>
 
     <h3 style="font-size: 1.05rem; margin-bottom: 0.8rem; color: var(--primary);">Classement comparatif des 3 solutions</h3>
@@ -459,7 +462,7 @@
   </div>
 </div>
 
-<!-- Modal Consultant (Protection par mot de passe) -->
+<!-- Modal Mot de passe Consultant -->
 <div id="adminModal">
   <div class="admin-card">
     <h3 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 8px;">Espace Consultant</h3>
@@ -473,10 +476,10 @@
 </div>
 
 <script>
-// VOS COORDONNÉES DE RÉCEPTION (À ajuster avec votre numéro réel) :
-const DEST_PHONE = "590690051144"; 
+// VOS COORDONNÉES EXACTES :
+const DEST_PHONE = "5906900511"; 
 const DEST_EMAIL = "dhamusoft@gmail.com";
-const ADMIN_CODE = "1984"; // Mot de passe consultant pour afficher la fiche
+const ADMIN_CODE = "1984";
 
 let secretClicks = 0;
 
@@ -492,7 +495,7 @@ function traiterEtSoumettre() {
 
   let scoreTic = 0, scoreSM = 0, scoreWx = 0;
 
-  for (let i = 1; i <= 8; i++) {
+  for (let i = 1; i <= 7; i++) {
     const checked = form.querySelector(`input[name="q${i}"]:checked`);
     scoreTic += parseInt(checked.getAttribute('data-score-tic') || '0', 10);
     scoreSM += parseInt(checked.getAttribute('data-score-sm') || '0', 10);
@@ -501,44 +504,43 @@ function traiterEtSoumettre() {
 
   const solutions = [
     {
-      id: "sur_mesure",
-      titre: "Développement Sur-Mesure Sans Abonnement (Indépendance & iCal)",
-      score: scoreSM + (scoreTic >= 35 ? 15 : 0),
+      id: "sur_mesure_subventionne",
+      titre: "Refonte Sur-Mesure Subventionnée Chèque TIC (Paiement 3x sans frais)",
+      score: scoreSM + (scoreTic >= 25 ? 20 : 0),
       coutAnnuel: "~15 € / an (nom de domaine seul)",
-      financement: "Prestation : 1 400 € | Financement Chèque TIC 80 % : -1 120 € | Reste à charge réel : 280 €",
-      description: "Plateforme web propriétaire avec synchronisation bidirectionnelle iCal (Airbnb/Booking) et formulaires de réservation directs. Aucun abonnement mensuel obligatoire.",
-      atout: "Économie nette de plus de 1 000 € sur 3 ans par rapport à un SaaS. Outil pérenne vous appartenant à 100 %."
+      financement: "Prestation : 1 400 € | Financement Chèque TIC 80 % : -1 120 € | Reste à charge réel : 280 € (Échelonnement possible en 3x 93 €)",
+      description: "Migration vers un site propriétaire ultra-performant (score Google au vert), optimisation SEO local Guadeloupe agressive, synchronisation automatique iCal sans surcoût et zéro abonnement mensuel.",
+      atout: "Élimine la rente mensuelle Wix et maximise la visibilité Google. Échelonnement en 3 mensualités pour préserver votre trésorerie avant remboursement de la Région."
     },
     {
-      id: "cheque_tic_global",
-      titre: "Projet Global Haut de Gamme Subventionné (Chèque TIC Région)",
+      id: "wix_optimise_express",
+      titre: "Audit & Optimisation Express du site Wix existant",
+      score: scoreWx,
+      coutAnnuel: "200 € à 360 € / an (maintien de l'abonnement Wix en cours)",
+      financement: "Intervention forfaitaire : 480 € (Paiement comptant ou en 2 fois)",
+      description: "Correction des anomalies d'affichage mobile sur le site existant, réécriture des balises SEO (titres, méta-descriptions), optimisation du poids des visuels et liaison Google Search Console.",
+      atout: "Mise en œuvre immédiate sans délai administratif, idéale pour corriger les bugs urgents avec un impact trésorerie minimal."
+    },
+    {
+      id: "projet_global_expansion",
+      titre: "Projet Global Haut de Gamme Subventionné (Acquisition Propriétaires & Voyageurs)",
       score: scoreTic,
       coutAnnuel: "~15 € / an",
       financement: "Prestation globale : 2 200 € | Financement Chèque TIC 80 % : -1 760 € | Reste à charge réel : 440 €",
-      description: "Développement complet du site, simulateur de rentabilité pour attirer les propriétaires, référencement local poussé (Guadeloupe), livret d'accueil numérique et formation.",
-      atout: "Levier financier maximal de la Région Guadeloupe pour doter la structure d'un outil d'acquisition complet."
-    },
-    {
-      id: "wix_optimise",
-      titre: "Intégration Plateforme Tout-en-Un (Wix Optimisé)",
-      score: scoreWx - (scoreSM > 35 ? 15 : 0),
-      coutAnnuel: "200 € à 360 € / an (versés à l'hébergeur en continu)",
-      financement: "Mise en place : 500 € + Forfait mensuel direct non finançable par l'aide régionale.",
-      description: "Création rapide sur constructeur visuel propriétaire avec accès à l'application mobile Wix pour les retouches.",
-      atout: "Simplicité de modification au smartphone, mais engendre une charge fixe annuelle perpétuelle."
+      description: "Refonte sur-mesure complète, simulateur de rentabilité locative pour recruter des propriétaires, livret d'accueil digitalisé, SEO multicanal et formation à l'outil.",
+      atout: "Levier financier régional maximal pour transformer votre conciergerie en marque de référence en Guadeloupe."
     }
   ];
 
   solutions.sort((a, b) => b.score - a.score);
 
-  // Construction de la restitution (prête en coulisse)
   const containerRanking = document.getElementById('solutionsRanking');
   containerRanking.innerHTML = '';
 
   const badges = [
     { label: "🥇 SOLUTION RECOMMANDÉE", class: "rank-1" },
     { label: "🥈 SOLUTION ALTERNATIVE", class: "rank-2" },
-    { label: "🥉 SOLUTION ÉCARTÉE / DÉCONSEILLÉE", class: "rank-3" }
+    { label: "🥉 SOLUTION ÉCARTÉE / SECONDAIRE", class: "rank-3" }
   ];
 
   solutions.forEach((sol, idx) => {
@@ -561,35 +563,32 @@ function traiterEtSoumettre() {
     <strong>Bénéficiaire :</strong> ${nom} — ${structure} | <strong>Réalisé par :</strong> Dhamusoft | <strong>Date :</strong> ${new Date().toLocaleDateString('fr-FR')}
   `;
 
-  // MESSAGE CLIENT TOTALEMENT ÉPURÉ & PROFESSIONNEL (Aucun score, aucun résultat visible)
+  // Message client neutre et valorisant (0 score visible)
   const messageClient = 
 `Bonjour,
 
-Je viens de compléter l'étude d'opportunité et le cadrage technique pour le projet web de ma conciergerie : ${structure}.
+Je viens de compléter l'étude d'opportunité et le cadrage technique pour le projet web de ma structure : ${structure}.
 
-Mes critères d'organisation (gestion des réservations, flux de séjours et perspectives d'évolution) ont été enregistrés avec succès.
+Mes critères d'organisation (visibilité Google, gestion des réservations et perspectives d'évolution) ont été enregistrés avec succès.
 
 Je reste à votre disposition pour planifier la restitution de notre feuille de route et découvrir les options adaptées à ma structure.
 
 Bien cordialement,
 ${nom}`;
 
-  // 1. WhatsApp
+  // Liens avec vos coordonnées
   document.getElementById('btnWhatsApp').href = `https://wa.me/${DEST_PHONE}?text=${encodeURIComponent(messageClient)}`;
 
-  // 2. Gmail Web (Ouverture directe sans logiciel à installer)
   const sujet = `Finalisation étude d'opportunité web - ${structure} (${nom})`;
   const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(DEST_EMAIL)}&su=${encodeURIComponent(sujet)}&body=${encodeURIComponent(messageClient)}`;
   document.getElementById('btnGmail').href = gmailUrl;
 
-  // 3. Mailto classique
   document.getElementById('btnEmailApp').href = `mailto:${DEST_EMAIL}?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(messageClient)}`;
 
   form.style.display = 'none';
   document.getElementById('confirmation-screen').style.display = 'block';
 }
 
-// DÉVERROUILLAGE SÉCURISÉ CONSULTANT
 function handleSecretClick() {
   secretClicks++;
   if (secretClicks >= 3) {
