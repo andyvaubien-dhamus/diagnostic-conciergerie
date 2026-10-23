@@ -77,6 +77,7 @@
     #adminModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(4px); z-index: 1000; align-items: center; justify-content: center; }
     .admin-card { background: white; padding: 24px; border-radius: 12px; max-width: 360px; width: 90%; text-align: center; }
     .admin-card input { width: 100%; padding: 10px; margin: 14px 0; border: 1px solid var(--frame-border); border-radius: 6px; font-size: 1rem; text-align: center; }
+    .admin-card .ref-input { font-size: 0.85rem; background: #f8fafc; color: var(--text-muted); }
 
     #restitution-report { display: none; margin-top: 2.5rem; padding-top: 2rem; border-top: 2px dashed var(--frame-border); }
     .report-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); padding-bottom: 1rem; margin-bottom: 1.2rem; }
@@ -331,7 +332,7 @@
       </p>
     </div>
 
-    <!-- PAGE 3 : AUDIT TECHNIQUE -->
+    <!-- PAGE 3 : AUDIT TECHNIQUE AVEC METHODE INTEGREE -->
     <div class="page-break">
       <div class="section-title">Benchmark Technique & Plan d'Action SEO</div>
       
@@ -480,9 +481,11 @@
 <div id="adminModal">
   <div class="admin-card">
     <h3 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 8px;">Espace Consultant</h3>
-    <p style="font-size: 0.85rem; color: var(--text-muted);">Saisissez le code d'accès pour afficher la restitution et modifier l'audit :</p>
-    <input type="password" id="adminPass" placeholder="Code secret">
-    <div style="display: flex; gap: 8px;">
+    <p style="font-size: 0.85rem; color: var(--text-muted);">Restaurer un dossier client ou afficher les résultats :</p>
+    <input type="password" id="adminPass" placeholder="Code secret (1984)">
+    <input type="text" id="adminRef" class="ref-input" placeholder="Réf. Dossier (Copier-coller ici)">
+    
+    <div style="display: flex; gap: 8px; margin-top: 10px;">
       <button class="btn-action btn-mail-app" style="flex: 1;" onclick="verifierPass()">Valider</button>
       <button class="btn-action" style="flex: 1; background: #cbd5e1; color: var(--text-main);" onclick="fermerModal()">Annuler</button>
     </div>
@@ -507,15 +510,25 @@ function traiterEtSoumettre() {
   }
 
   let scoreTic = 0, scoreSM = 0, scoreWx = 0;
+  let indices = [];
 
   for (let i = 1; i <= 12; i++) {
-    const checked = form.querySelector(`input[name="q${i}"]:checked`);
-    if(checked) {
-      scoreTic += parseInt(checked.getAttribute('data-score-tic') || '0', 10);
-      scoreSM += parseInt(checked.getAttribute('data-score-sm') || '0', 10);
-      scoreWx += parseInt(checked.getAttribute('data-score-wx') || '0', 10);
-    }
+    const radios = form.querySelectorAll(`input[name="q${i}"]`);
+    let checkedIndex = 0;
+    radios.forEach((r, idx) => { 
+      if(r.checked) {
+        checkedIndex = idx;
+        scoreTic += parseInt(r.getAttribute('data-score-tic') || '0', 10);
+        scoreSM += parseInt(r.getAttribute('data-score-sm') || '0', 10);
+        scoreWx += parseInt(r.getAttribute('data-score-wx') || '0', 10);
+      }
+    });
+    indices.push(checkedIndex);
   }
+
+  // --- CRYPTAGE DE LA REFERENCE (NOM::STRUCTURE::012012012) ---
+  const refString = `${nom}::${structure}::${indices.join('')}`;
+  const refCode = btoa(encodeURIComponent(refString)); // Convertit en Base64
 
   const solutions = [
     {
@@ -578,21 +591,24 @@ function traiterEtSoumettre() {
     <strong>Bénéficiaire :</strong> ${nom} — ${structure} | <strong>Réalisé par :</strong> Dhamusoft | <strong>Date :</strong> ${new Date().toLocaleDateString('fr-FR')}
   `;
 
+  // MESSAGE CLIENT AVEC LE CODE SECRET INCLUS
   const messageClient = 
 `Bonjour,
 
 Je viens de compléter l'étude d'opportunité et le cadrage technique pour le projet web de ma structure : ${structure}.
 
-Mes critères d'organisation (visibilité Google, gestion des flux et perspectives) ont été enregistrés avec succès.
-
+Mes critères d'organisation ont été enregistrés avec succès.
 Je reste à votre disposition pour planifier la restitution de notre feuille de route.
 
 Bien cordialement,
-${nom}`;
+${nom}
+
+---
+Réf. Dossier : ${refCode}`;
 
   document.getElementById('btnWhatsApp').href = `https://wa.me/${DEST_PHONE}?text=${encodeURIComponent(messageClient)}`;
 
-  const sujet = `Finalisation étude d'opportunité web - ${structure} (${nom})`;
+  const sujet = `Diagnostic Web complété - ${structure} (${nom})`;
   const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(DEST_EMAIL)}&su=${encodeURIComponent(sujet)}&body=${encodeURIComponent(messageClient)}`;
   document.getElementById('btnGmail').href = gmailUrl;
 
@@ -628,12 +644,45 @@ function fermerModal() {
 }
 
 function verifierPass() {
-  const saisie = document.getElementById('adminPass').value;
-  if (saisie === ADMIN_CODE) {
+  const pass = document.getElementById('adminPass').value;
+  const ref = document.getElementById('adminRef').value.trim();
+
+  if (pass === ADMIN_CODE) {
     fermerModal();
+
+    // RESTAURATION DES DONNÉES SI UN CODE EST COLLÉ
+    if (ref) {
+      try {
+        const decoded = decodeURIComponent(atob(ref));
+        const parts = decoded.split('::');
+        if (parts.length === 3) {
+          document.getElementById('clientNom').value = parts[0];
+          document.getElementById('clientStructure').value = parts[1];
+          const indicesArray = parts[2].split('');
+          
+          for(let i = 1; i <= 12; i++) {
+             const radios = document.querySelectorAll(`input[name="q${i}"]`);
+             const restoredIndex = parseInt(indicesArray[i-1], 10);
+             if(radios[restoredIndex]) {
+                radios[restoredIndex].checked = true;
+             }
+          }
+          // On relance le calcul silencieusement
+          traiterEtSoumettre();
+        }
+      } catch(e) {
+        alert("Code de restauration invalide.");
+        return;
+      }
+    }
+
+    // AFFICHER LE RAPPORT
+    document.getElementById('quizForm').style.display = 'none';
+    document.getElementById('confirmation-screen').style.display = 'none';
     const rep = document.getElementById('restitution-report');
     rep.style.display = 'block';
     rep.scrollIntoView({ behavior: 'smooth' });
+
   } else {
     alert("Code incorrect.");
   }
