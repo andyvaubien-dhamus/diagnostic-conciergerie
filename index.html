@@ -591,12 +591,12 @@ function traiterEtSoumettre() {
     <strong>Bénéficiaire :</strong> ${nom} — ${structure} | <strong>Réalisé par :</strong> Dhamusoft | <strong>Date :</strong> ${new Date().toLocaleDateString('fr-FR')}
   `;
 
-  // Message brut pour WhatsApp
+  // Message complet avec la Réf. Dossier à la fin
   const messageClient = `Bonjour,\n\nJe viens de compléter l'étude d'opportunité et le cadrage technique pour le projet web de ma structure : ${structure}.\n\nMes critères d'organisation ont été enregistrés avec succès.\nJe reste à votre disposition pour planifier la restitution de notre feuille de route.\n\nBien cordialement,\n${nom}\n\n---\nRéf. Dossier : ${refCode}`;
 
   document.getElementById('btnWhatsApp').href = `https://wa.me/${DEST_PHONE}?text=${encodeURIComponent(messageClient)}`;
 
-  // Encodage renforcé pour les E-mails (remplace les sauts de ligne par %0D%0A)
+  // Encodage renforcé pour les E-mails (protège les sauts de ligne)
   const messageEmail = messageClient.replace(/\n/g, '%0D%0A');
   const sujet = `Diagnostic Web complété - ${structure} (${nom})`;
   
