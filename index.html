@@ -591,28 +591,19 @@ function traiterEtSoumettre() {
     <strong>Bénéficiaire :</strong> ${nom} — ${structure} | <strong>Réalisé par :</strong> Dhamusoft | <strong>Date :</strong> ${new Date().toLocaleDateString('fr-FR')}
   `;
 
-  // MESSAGE CLIENT AVEC LE CODE SECRET INCLUS
-  const messageClient = 
-`Bonjour,
-
-Je viens de compléter l'étude d'opportunité et le cadrage technique pour le projet web de ma structure : ${structure}.
-
-Mes critères d'organisation ont été enregistrés avec succès.
-Je reste à votre disposition pour planifier la restitution de notre feuille de route.
-
-Bien cordialement,
-${nom}
-
----
-Réf. Dossier : ${refCode}`;
+  // Message brut pour WhatsApp
+  const messageClient = `Bonjour,\n\nJe viens de compléter l'étude d'opportunité et le cadrage technique pour le projet web de ma structure : ${structure}.\n\nMes critères d'organisation ont été enregistrés avec succès.\nJe reste à votre disposition pour planifier la restitution de notre feuille de route.\n\nBien cordialement,\n${nom}\n\n---\nRéf. Dossier : ${refCode}`;
 
   document.getElementById('btnWhatsApp').href = `https://wa.me/${DEST_PHONE}?text=${encodeURIComponent(messageClient)}`;
 
+  // Encodage renforcé pour les E-mails (remplace les sauts de ligne par %0D%0A)
+  const messageEmail = messageClient.replace(/\n/g, '%0D%0A');
   const sujet = `Diagnostic Web complété - ${structure} (${nom})`;
-  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(DEST_EMAIL)}&su=${encodeURIComponent(sujet)}&body=${encodeURIComponent(messageClient)}`;
+  
+  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(DEST_EMAIL)}&su=${encodeURIComponent(sujet)}&body=${messageEmail}`;
   document.getElementById('btnGmail').href = gmailUrl;
 
-  document.getElementById('btnEmailApp').href = `mailto:${DEST_EMAIL}?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(messageClient)}`;
+  document.getElementById('btnEmailApp').href = `mailto:${DEST_EMAIL}?subject=${encodeURIComponent(sujet)}&body=${messageEmail}`;
 
   form.style.display = 'none';
   document.getElementById('confirmation-screen').style.display = 'block';
