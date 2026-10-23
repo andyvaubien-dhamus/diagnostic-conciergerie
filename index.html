@@ -112,6 +112,14 @@
     .btn-print { display: block; width: 100%; padding: 0.75rem; background: #ffffff; color: var(--primary); border: 1px solid var(--frame-border); border-radius: 25px; font-weight: 700; font-size: 0.90rem; cursor: pointer; margin-top: 2rem; }
     
     .page-break { margin-top: 2rem; padding-top: 2rem; border-top: 2px dashed var(--frame-border); }
+    .tool-label { display: block; font-size: 0.8rem; color: var(--accent); font-weight: 600; margin-top: 4px; }
+
+    /* Grille Méthodologie (Annexe) */
+    .method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 1.5rem; }
+    .method-card { border: 1px solid var(--frame-border); padding: 18px; border-radius: 10px; background: #ffffff; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+    .method-card h4 { color: var(--primary); font-size: 0.98rem; margin-bottom: 8px; }
+    .method-card p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px; }
+    .method-tool { font-size: 0.78rem; font-weight: 800; color: var(--accent-hover); background: #fef3c7; padding: 4px 10px; border-radius: 12px; display: inline-block; }
 
     @media print {
       body { background: white; padding: 0; }
@@ -121,6 +129,7 @@
       .ranking-card { page-break-inside: avoid; border: 1px solid #cbd5e1; }
       .page-break { page-break-before: always; border-top: none; margin-top: 0; padding-top: 0; }
       [contenteditable="true"] { background-color: transparent !important; border: none !important; padding: 0 !important; }
+      .method-card { page-break-inside: avoid; }
     }
   </style>
 </head>
@@ -356,47 +365,113 @@
         </thead>
         <tbody>
           <tr>
-            <td><strong>1. Vitesse & Score Mobile (Core Web Vitals)</strong></td>
+            <td>
+              <strong>1. Vitesse & Score Mobile (Core Web Vitals)</strong><br>
+              <span class="tool-label">🛠 Outil : Google PageSpeed Insights</span>
+            </td>
             <td contenteditable="true">Score &lt; 50/100 : Chargement &gt; 3,5s sur réseau 4G local à cause des scripts lourds propriétaires Wix.</td>
             <td>Score &gt; 90/100 : Affichage instantané (&lt; 1,2s).</td>
             <td>Code pur allégé sans surcouche logicielle : pénalité Google levée et rebond divisé par 2.</td>
           </tr>
           <tr>
-            <td><strong>2. Balisage Sémantique SEO (H1, H2, Title)</strong></td>
+            <td>
+              <strong>2. Balisage Sémantique SEO (H1, H2, Title)</strong><br>
+              <span class="tool-label">🛠 Méthode : Inspection du code source</span>
+            </td>
             <td contenteditable="true">Générique / Confus : Titres non géo-ciblés, hiérarchie H1 absente ou dupliquée.</td>
             <td>Géo-ciblage strict par intention et zone géographique.</td>
             <td>Réécriture complète de l'arborescence pour capter les requêtes locales (Guadeloupe).</td>
           </tr>
           <tr>
-            <td><strong>3. Optimisation Visuelle (Alt & .webp)</strong></td>
+            <td>
+              <strong>3. Optimisation Visuelle (Alt & .webp)</strong><br>
+              <span class="tool-label">🛠 Outil : Analyseur réseau (DevTools)</span>
+            </td>
             <td contenteditable="true">Fichiers bruts lourds (ex: 3 Mo) sans balises textuelles "alt" pour Google Images.</td>
             <td>Compression WebP &lt; 150 Ko + mots-clés.</td>
             <td>Conversion intégrale au format .webp et indexation SEO des photos de biens.</td>
           </tr>
           <tr>
-            <td><strong>4. Séparation des Parcours (Propriétaires / Voyageurs)</strong></td>
+            <td>
+              <strong>4. Séparation des Parcours (Propriétaires / Voyageurs)</strong><br>
+              <span class="tool-label">🛠 Méthode : Audit des parcours UX</span>
+            </td>
             <td contenteditable="true">Parcours mélangés : les cibles se croisent sur la page d'accueil, diluant le message.</td>
             <td>Double tunnel étanche dès la page d'accueil.</td>
             <td>Création de deux portes d'entrée distinctes avec argumentaires de conversion dédiés.</td>
           </tr>
           <tr>
-            <td><strong>5. Ergonomie Tactile & Contact Mobile</strong></td>
+            <td>
+              <strong>5. Ergonomie Tactile & Contact Mobile</strong><br>
+              <span class="tool-label">🛠 Méthode : Test d'utilisabilité tactile</span>
+            </td>
             <td contenteditable="true">Friction élevée : formulaires inadaptés au mobile, numéros de tel non cliquables.</td>
             <td>Contact en 1 tapotement (appels/WhatsApp).</td>
             <td>Intégration d'une barre d'action mobile rapide (Appel direct, WhatsApp prérempli).</td>
           </tr>
           <tr>
-            <td><strong>6. Indexation robots.txt & Couverture Google</strong></td>
+            <td>
+              <strong>6. Indexation robots.txt & Couverture Google</strong><br>
+              <span class="tool-label">🛠 Outil : Requête Google "site:"</span>
+            </td>
             <td contenteditable="true">Sous-indexation critique : la majorité des pages internes sont ignorées par Google.</td>
             <td>Plan Sitemap XML actif et pages ciblées.</td>
             <td>Déploiement d'un sitemap propre et soumission manuelle à Google Search Console.</td>
           </tr>
         </tbody>
       </table>
-      
-      <p style="font-size: 0.75rem; text-align: right; color: var(--text-muted); margin-top: 10px;">
-        <em>Audit flash réalisé à titre indicatif par Dhamusoft avant intervention technique.</em>
+    </div>
+
+    <!-- PAGE 4 : ANNEXE MÉTHODOLOGIE -->
+    <div class="page-break">
+      <div class="section-title">Annexe 1 : Transparence & Méthodologie d'Audit Technique</div>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+        Dans une démarche de stricte transparence, ce document annexe détaille les outils officiels et les protocoles d'ingénierie web utilisés par Dhamusoft pour évaluer objectivement les performances et les anomalies de votre site actuel.
       </p>
+
+      <div class="method-grid">
+        <!-- Point 1 -->
+        <div class="method-card">
+          <h4>1. Vitesse & Performances Mobiles</h4>
+          <span class="method-tool">Outil : Google PageSpeed Insights (API)</span>
+          <p>Mesure des signaux Web essentiels (Core Web Vitals) tels que le <em>Largest Contentful Paint (LCP)</em> et le <em>Cumulative Layout Shift (CLS)</em>. Permet de chiffrer l'impact négatif des surcouches JavaScript imposées par l'hébergeur sur les réseaux mobiles 3G/4G.</p>
+        </div>
+        
+        <!-- Point 2 -->
+        <div class="method-card">
+          <h4>2. Sémantique & Structure SEO</h4>
+          <span class="method-tool">Méthode : Inspection du DOM (Document Object Model)</span>
+          <p>Analyse du code source HTML brut lu par les robots. Vérification de la présence, de l'unicité et du ciblage géographique des balises maîtresses <code>&lt;title&gt;</code> et de la hiérarchie des titres (de <code>&lt;h1&gt;</code> à <code>&lt;h6&gt;</code>) pour le référencement local.</p>
+        </div>
+
+        <!-- Point 3 -->
+        <div class="method-card">
+          <h4>3. Poids & Métadonnées Visuelles</h4>
+          <span class="method-tool">Outil : Chrome Developer Tools (Onglet Network)</span>
+          <p>Interception des requêtes serveur pour vérifier le poids réel de téléchargement des images. Contrôle de la présence de l'attribut textuel <code>alt="..."</code> obligatoire pour positionner vos biens sur le moteur de recherche Google Images.</p>
+        </div>
+
+        <!-- Point 4 -->
+        <div class="method-card">
+          <h4>4. Architecture des Parcours Utilisateur</h4>
+          <span class="method-tool">Méthode : Audit UX (Cognitive Walkthrough)</span>
+          <p>Simulation du cheminement d'un visiteur selon son intention (Propriétaire cherchant de la gestion vs Vacancier cherchant une nuitée). Évaluation des points de friction cognitifs qui font chuter le taux de conversion.</p>
+        </div>
+
+        <!-- Point 5 -->
+        <div class="method-card">
+          <h4>5. Accessibilité & Ergonomie Tactile</h4>
+          <span class="method-tool">Méthode : Test d'Émulation Mobile & Tap Targets</span>
+          <p>Vérification du dimensionnement des boutons d'appel à l'action pour les écrans tactiles. Contrôle des protocoles de liens rapides (ex: <code>tel:</code> ou <code>https://wa.me/</code>) pour garantir une mise en relation instantanée au pouce.</p>
+        </div>
+
+        <!-- Point 6 -->
+        <div class="method-card">
+          <h4>6. Profondeur d'Indexabilité</h4>
+          <span class="method-tool">Outil : Opérateur Google "site:" & fichier robots.txt</span>
+          <p>Interrogation directe des serveurs de Google via la commande avancée <code>site:votredomaine.com</code> pour extraire le nombre exact de pages officiellement reconnues et affichables dans les résultats de recherche publics.</p>
+        </div>
+      </div>
     </div>
 
   </div>
